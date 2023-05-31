@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>Jquery Mobile</title>
+</head>
+<body>
+    <div data-role="header">
+        <h1>WELCOME!!</h1>
+    </div>
+    <div data-role="navbar">
+        <ul>
+        <li><a href="#" class="ui-btn-active">Home</a></li>
+        <li><a href="#">Product</a></li>
+        </ul>
+    </div>
+    <form style="width: 100%;">
+        <label for="searchArea">
+            Search Your Items Here!!
+        </label> 
+        <input type="search" name="searchArea" id="searchArea" value="" placeholder="Search Items...">
+    </form>
+    <div class="choice_list">
+        <ul data-role="listview" data-inset="true" >
+        <li><a href="" data-transition="slidedown"> <img src="mob.jpeg"/> <h3> Mobile </h3></a></li>
+        <li><a href="" data-transition="slidedown"> <img src="lp.jpg"/> <h3> Laptops </h3></a></li>
+        <li><a href="" data-transition="slidedown"> <img src="wm.jpg"/> <h3>Washing Machine</h3></a></li>
+        <li><a href="" data-transition="slidedown"> <img src="fridge.png"/> <h3> Refrigirator</h3></a></li>
+        
+        </ul>
+        </div>
+<div data-role="footer">
+    <h4>COPYRIGHT @utkarshaK</h4>
+</div>
+</body>
+</html>
+

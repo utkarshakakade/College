@@ -1,0 +1,15 @@
+index.js
+console.log();
+
+Dockerfile
+FROM node:alpine
+COPY . /partb
+CMD node /partb/index.js
+
+commands:
+docker --version
+node index.js
+docker build -t partb
+docker images
+docker tag partb utkarsha19/hellonode        
+docker push utkarsha19/hellonode 

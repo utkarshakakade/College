@@ -1,0 +1,51 @@
+import sys
+
+def nearest_neighbor(curr, unvisited, dist_matrix):
+    nearest = sys.maxsize
+    neighbor = None
+
+    for city in unvisited:
+        if dist_matrix[curr][city] < nearest:
+            nearest = dist_matrix[curr][city]
+            neighbor = city
+
+    return neighbor, nearest
+
+def tsp_nn(dist_matrix):
+    n = len(dist_matrix)
+    tour = [0] * (n+1)
+    unvisited = set(range(1, n))
+    curr_city = 0
+
+    for i in range(1, n):
+        next_city, dist = nearest_neighbor(curr_city, unvisited, dist_matrix)
+        tour[i] = next_city
+        curr_city = next_city
+        unvisited.remove(next_city)
+
+    tour[0] = 0
+
+    cost = sum(dist_matrix[tour[i]][tour[i+1]] for i in range(n-1))
+    cost += dist_matrix[tour[n-1]][tour[0]]
+
+    return tour, cost
+
+Rows = int(input("Enter the number of rows: "))
+Columns = int(input("Enter the number of columns: "))
+dist_matrix = []
+
+print("\nEnter the values of the distance matrix, one row per line: ")
+
+for i in range(Rows):
+    row = list(map(int, input().split()))
+    dist_matrix.append(row)
+
+print("\n\nThe distance matrix is:\n")
+for row in dist_matrix:
+    for value in row:
+        print(value, end=" ")
+    print()
+
+tour, cost = tsp_nn(dist_matrix)
+print("\nTour:", tour)
+print("Total cost:", cost)

@@ -1,0 +1,150 @@
+display-data.html
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>DISPLAY STUDENTS DATA</title>
+</head>
+<style>
+  body{
+      background-color: rgb(223, 165, 7);
+  }
+  
+</style>
+<body>
+
+  <body>
+  <center>
+   <h1>Welcome<br></h1>
+   <h2>
+    <span id="firstName"></span></br>
+    <span id="lastName"></span>
+
+    </h2>
+    Your request has been received
+    </center>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="display-data.js"></script>
+  </body>
+
+</html>
+
+display-data.js
+$(document).ready(function () {
+    getData();
+  });
+  
+  function getData() {
+    let localStorageData = localStorage.getItem("student");
+    let studentObj = JSON.parse(localStorageData);
+    console.log(studentObj);
+   
+    $("#firstName").text(studentObj.firstName);
+    $("#lastName").text(studentObj.lastName);
+    
+  }
+
+index.html
+<!-- File Name: index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>USER REGISTRATION FORM</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <style>
+    body{
+        background-color: rgb(223, 165, 7);
+    }
+    .text{
+        text-align: center;
+        background-color: aliceblue;
+        text-shadow:1ch;
+        font-size: large;
+    }
+    .btn {
+  position: relative;
+  background-color: #04012b;
+  border: none;
+  font-size: 20px;
+  color: #FFFFFF;
+  padding: 15px;
+  width: 100px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+
+    }
+</style>
+  <body>
+    
+    <center>
+      <h1>REGISTER USER</h1>
+    <form id="studentForm">
+      <h2><label>FIRST NAME</label> <br></h2>
+      <input type="text" id="firstName" class="form-control" required /><br>
+
+      <h2><label>LAST NAME</label> <br></h2>
+      <input type="text" id="lastName" class="form-control" required /><br><br>
+
+      <button class="btn btn-primary btn-lg" id="btnAddStudent" type="button">
+        SUBMIT
+      </button>
+    </form>
+</center>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="myscript.js"></script>
+  </body>
+</html>
+
+myscript.js
+
+$(document).ready(function () {
+  // getData();
+
+  $("#btnAddStudent").click(function () {
+    //collect student data from student form
+    function getStudentData() {
+      let student = {
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+      };
+      $("#studentForm")[0].reset();
+      return student;
+    }
+
+    //store student data to localStorage
+    function storeDataToLocalStorage() {
+      if (!localStorage.getItem("student")) {
+        localStorage.setItem("student", JSON.stringify(getStudentData()));
+      } else {
+        localStorage.removeItem("student");
+        localStorage.setItem("student", JSON.stringify(getStudentData()));
+      }
+    }
+
+    //send data to server with AJAX request
+    function sendData() {
+      let xhr = new XMLHttpRequest();
+      let data = JSON.stringify(getStudentData());
+      xhr.open("POST", "http://localhost:4000/storedata", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(data);
+    }
+
+    //call storeDataToLocalStorage and sendData functions
+    storeDataToLocalStorage();
+    // sendData();
+    // window.location.href = "display-data.html";
+    window.open("display-data.html");
+  });
+});

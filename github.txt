@@ -1,0 +1,12 @@
+git --version
+git init
+git status
+git add .
+git status
+git remote add origin "Link of repository"
+git config --global user.email "email id "
+git config --global user.name "username"
+git commit -m  "Changes"
+git push -u origin master
+git pull origin 
+git status
